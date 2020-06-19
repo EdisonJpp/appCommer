@@ -1,0 +1,24 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "commerce",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon /backend/src/index.js --ignore frontend",
+    "start": "node backend/src/index.js "
+  },
+  "keywords": [],
+  "author": "Edison Jesus Padilla Paulino",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7",
+    "sequelize": "^5.21.6",
+    "tedious": "^8.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}
