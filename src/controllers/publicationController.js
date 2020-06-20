@@ -4,7 +4,7 @@ const categoryModel = require('../models/categoriesModel');
 const shoppingCartModel = require('../models/carrito');
 
 const fs = require('fs');
-const { unlink } = require('fs-extra');
+const { unlink } = require('fs');
 const path = require('path');
 const { confingJoin, includeJoin } = require('../config/joinConfig');
 
