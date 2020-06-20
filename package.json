@@ -16,9 +16,7 @@
     "fs": "0.0.1-security",
     "path": "^0.12.7",
     "sequelize": "^5.21.6",
-    "tedious": "^8.3.0"
-  },
-  "devDependencies": {
+    "tedious": "^8.3.0",
     "nodemon": "^2.0.3"
   }
 }
