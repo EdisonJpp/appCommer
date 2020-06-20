@@ -1,5 +1,5 @@
 const publicationModel = require('../../models/publicationModel');
-const Users = require('../../models/usersmodel');
+const Users = require('../../models/usersModel');
 const CategoriesModel = require('../../models/categoriesModel');
 const ProvinceModel = require('../../models/provinceModel');
 

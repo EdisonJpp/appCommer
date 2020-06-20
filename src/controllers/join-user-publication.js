@@ -1,4 +1,4 @@
-const Users = require('../models/usersmodel');
+const Users = require('../models/usersModel');
 const publicationModel = require('../models/publicationModel');
 const CategoriesModel = require('../models/CategoriesModel');
 
