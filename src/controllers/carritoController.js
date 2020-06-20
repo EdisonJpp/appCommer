@@ -52,5 +52,5 @@ exports.deleteShoppingCart = async(req, res) =>{
             id : id, 
         },
     });
-    res.status(200).json({message : 'you delete this correctly'});
+    res.status(200).json({message : 'you delete it correctly'});
 };
