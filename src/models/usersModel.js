@@ -1,6 +1,6 @@
 const sequelize = require('sequelize');
 const database = require('../config/DTB') 
-const users = database.define('users', {
+module.exports = database.define('users', {
     name:{
        type : sequelize.STRING,
     } ,
@@ -21,7 +21,6 @@ const users = database.define('users', {
     } ,
     emai : {
         type :sequelize.STRING,
-        // primaryKey: true
     },
     province_id : {
         type :sequelize.INTEGER ,
@@ -31,5 +30,5 @@ const users = database.define('users', {
           }
     } 
 });
-module.exports = users ; 
+//  = users ; 
 
