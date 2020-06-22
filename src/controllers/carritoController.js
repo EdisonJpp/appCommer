@@ -1,7 +1,7 @@
 const shoppingCart = require('../models/carrito');
 const PublicationModel = require('../models/publicationModel');
 const User = require('../models/usersModel');
-
+//// edison padilla 
 exports.getShoppingCart = async( req,res, next) => {
         try {
             PublicationModel.hasMany(shoppingCart, {foreignkey : 'publicationId'});
