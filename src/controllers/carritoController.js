@@ -16,6 +16,7 @@ exports.getShoppingCart = async( req,res, next) => {
             console.log(error);
             next()
         };
+        
 };
 exports.addShoppingCart = async(req,res)=>{
     try {
