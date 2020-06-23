@@ -1,21 +1,17 @@
 const Users = require('../models/usersModel');
 const publicationModel = require('../models/publicationModel');
 const ProvinceModel = require('../models/provinceModel');
+const fs = require('fs');
 
 const { configJoinUser, includeJoinUser } = require('../config/joinConfig/index');
-// const ProvinceModel = require('../models/provinceModel');
 exports.getUsers = async (req, res, next) => {
     try {
-        // configJoinUser();
         ProvinceModel.hasMany(Users, { foreignKey: 'province_id' });
         Users.belongsTo(ProvinceModel, { foreignKey: 'province_id' });
         Users.hasMany(publicationModel, { foreignKey: 'users_id' });
         publicationModel.belongsTo(Users, { foreignKey: 'users_id' });
         const users = await Users.findAll({
-            // attributes: '',
-            // attributes: ['id', 'name', 'lastname', 'username', 'password', 'gender', 'emai', 'province_id'],
             include: [{ model: ProvinceModel }, { model: publicationModel }],
-            // includeJoinUser
         });
         res.status(200).json(users);
     } catch (error) {
@@ -25,16 +21,25 @@ exports.getUsers = async (req, res, next) => {
 };
 exports.addUser = async (req, res, next) => {
     try {
-        let { name, lastname, username, password, gender, phonenumber, emai, province_id } = new Users(req.body);
-        //    await Users.findAll({
-        //         where: {
-        //             emai: emai
-        //         }
-        //     });
-        // const validate = Users.emai ;
-        // console.log(validate);
-        // console.log(emai);
-        // if(emai != validate ){
+
+
+
+        // const arrImg = [];
+
+        const i = req.body.profilePicture ; 
+        // await req.body.photos.map(i => {
+            const ext = i.split('/')[1].split(';')[0];
+            const image = i.split(',')[1];
+            const image_name = Date.now() + '.' + ext;
+            let image_path = './public/profile/' + image_name;
+            // arrImg.push(image_name);
+            const buildPicture = async () => {
+                await fs.writeFileSync(image_path, image, 'base64');
+            };
+            buildPicture();
+        // });
+        const profilePicture = i.join('');
+        let { name, lastname, username, password, gender, phonenumber, emai, province_id  } = new Users(req.body);
         await Users.create({
             name,
             lastname,
@@ -44,21 +49,11 @@ exports.addUser = async (req, res, next) => {
             phonenumber,
             emai,
             province_id,
+            profilePicture : profilePicture,
         });
         res.status(200).json({ message: 'add user correctly' });
-
-        // }else ;
-
-
-
-        // const correctly = ['add user correctly'];
-        // res.json(correctly);
-
-
     } catch (error) {
-        // res.json({ message: 'This email already exists' });
         error ? res.status(409).json({ error: 'This email already exists' }) : null;
-        // console.log(error);
 
     }
 };
@@ -72,10 +67,6 @@ exports.getUserById = async (req, res, next) => {
         publicationModel.belongsTo(Users, { foreignKey: 'users_id' });
         const myProfile = await Users.findByPk(req.params.id, {
             include: [{ model: ProvinceModel }, { model: publicationModel }],
-            // attributes: ['id', 'title', 'condition', 'price', 'description', 'image_name', 'wasPublishedAt', 'users_id', 'categoryId'],
-            // order: [
-            //     ['id', 'DESC']
-            // ],
         });
         const data = {
             emai: myProfile.emai,
@@ -100,7 +91,8 @@ exports.getUserById = async (req, res, next) => {
                     wasPublishedAt: p.wasPublishedAt,
                 }
             )),
-            username:myProfile.username, 
+            username: myProfile.username,
+            profilePicture : myProfile.profilePicture,
         }
         res.status(200).json(data);
     } catch (error) {
@@ -118,31 +110,24 @@ exports.updateUserById = async (req, res, next) => {
             next();
         });
 };
-
-// exports.updatePasswordById = async (req, res, next) => {
-//     const id = req.params.id;
-//     Users.findOrCreate(req.body, {
-//         where: { id: id }
-//     }).then(e => res.status(200).json({ mensaje: "se actualizo correctamente el usuario" + '' + id }))
-//         .cacth(e => {
-//             console.log(e);
-//             next();
-//         });
-// };
 exports.deleteUser = async (req, res, next) => {
     const id = req.params.id;
+
+    const {profilePicture} =  User.findByPk(id)  ;
+    fs.unlink(path.resolve(`./public/profile/./${profilePicture}`), () => console.log('elimiando')); 
     Users.destroy({
         where: {
             id: id
-        }
+        },
     }).then(e => res.json({ mensaje: "se elimino correctamente el usuario" + '' + id }))
         .cacth(e => {
             console.log(e);
             next();
         });
+
+
 };
 exports.authUser = async (req, res, next) => {
-    // try {
     const { emai, password } = req.body;
     const user = await Users.findOne({
         where: {
@@ -157,12 +142,6 @@ exports.authUser = async (req, res, next) => {
         console.log(user instanceof Users)
         res.status(200).json({ user });
     };
-
-    // } catch (error) {
-    // res.status(404).json({ error : 'datos incorrectos'});
-
-
-    // }
 };
 
 
