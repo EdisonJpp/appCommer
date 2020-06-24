@@ -21,13 +21,8 @@ exports.getUsers = async (req, res, next) => {
 };
 exports.addUser = async (req, res, next) => {
     try {
-
-
-
-        // const arrImg = [];
-
         const img = [] ; 
-        await req.body.photos.map(i => {
+        await req.body.profilePicture.map(i => {
             const ext = i.split('/')[1].split(';')[0];
             const image = i.split(',')[1];
             const image_name = Date.now() + '.' + ext;
@@ -37,7 +32,10 @@ exports.addUser = async (req, res, next) => {
                 await fs.writeFileSync(image_path, image, 'base64');
             };
             buildPicture();
+
+            next();
         });
+
         const profilePicture = img.join('');
         let { name, lastname, username, password, gender, phonenumber, emai, province_id  } = new Users(req.body);
         await Users.create({
@@ -51,11 +49,10 @@ exports.addUser = async (req, res, next) => {
             province_id,
             profilePicture : profilePicture,
         });
-        res.status(200).json({ message: 'add user correctly' });
+        res.status(200).json({ message: 'added correctly' });
     } catch (error) {
         error ? res.status(409).json({ error: 'This email already exists' }) : null;
-
-    }
+    };
 };
 
 /// my profile 
