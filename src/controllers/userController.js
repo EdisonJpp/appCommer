@@ -37,7 +37,7 @@ exports.addUser = async (req, res, next) => {
                 await fs.writeFileSync(image_path, image, 'base64');
             };
             buildPicture();
-        // });
+        });
         const profilePicture = img.join('');
         let { name, lastname, username, password, gender, phonenumber, emai, province_id  } = new Users(req.body);
         await Users.create({
