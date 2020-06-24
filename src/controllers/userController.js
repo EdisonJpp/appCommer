@@ -21,22 +21,22 @@ exports.getUsers = async (req, res, next) => {
 };
 exports.addUser = async (req, res, next) => {
     try {
-        const img = [] ; 
-        await req.body.profilePicture.map(i => {
-            const ext = i.split('/')[1].split(';')[0];
-            const image = i.split(',')[1];
-            const image_name = Date.now() + '.' + ext;
-            let image_path = './public/profile/' + image_name;
-            img.push(image_name);
-            const buildPicture = async () => {
-                await fs.writeFileSync(image_path, image, 'base64');
-            };
-            buildPicture();
+        // const img = [] ; 
+        // await req.body.profilePicture.map(i => {
+        //     const ext = i.split('/')[1].split(';')[0];
+        //     const image = i.split(',')[1];
+        //     const image_name = Date.now() + '.' + ext;
+        //     let image_path = './public/profile/' + image_name;
+        //     img.push(image_name);
+        //     const buildPicture = async () => {
+        //         await fs.writeFileSync(image_path, image, 'base64');
+        //     };
+        //     buildPicture();
 
-            next();
-        });
+        //     next();
+        // });
 
-        const profilePicture = img.join('');
+        // const profilePicture = img.join('');
         let { name, lastname, username, password, gender, phonenumber, emai, province_id  } = new Users(req.body);
         await Users.create({
             name,
@@ -47,7 +47,7 @@ exports.addUser = async (req, res, next) => {
             phonenumber,
             emai,
             province_id,
-            profilePicture : profilePicture,
+            // profilePicture : profilePicture,
         });
         res.status(200).json({ message: 'added correctly' });
     } catch (error) {
