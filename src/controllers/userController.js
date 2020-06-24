@@ -26,19 +26,19 @@ exports.addUser = async (req, res, next) => {
 
         // const arrImg = [];
 
-        const i = req.body.profilePicture ; 
-        // await req.body.photos.map(i => {
+        const img = [] ; 
+        await req.body.photos.map(i => {
             const ext = i.split('/')[1].split(';')[0];
             const image = i.split(',')[1];
             const image_name = Date.now() + '.' + ext;
             let image_path = './public/profile/' + image_name;
-            // arrImg.push(image_name);
+            img.push(image_name);
             const buildPicture = async () => {
                 await fs.writeFileSync(image_path, image, 'base64');
             };
             buildPicture();
         // });
-        const profilePicture = i.join('');
+        const profilePicture = img.join('');
         let { name, lastname, username, password, gender, phonenumber, emai, province_id  } = new Users(req.body);
         await Users.create({
             name,
