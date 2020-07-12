@@ -1,6 +1,6 @@
 const Users = require('../models/usersModel');
 const publicationModel = require('../models/publicationModel');
-const CategoriesModel = require('../models/CategoriesModel');
+// const CategoriesModel = require('../models/CategoriesModel');
 
 exports.publicationJoin = async (req, res, next) => {
   Users.hasMany(publicationModel, {

@@ -3,7 +3,7 @@ const publicationModel = require('../models/publicationModel');
 const ProvinceModel = require('../models/provinceModel');
 const fs = require('fs');
 
-const { configJoinUser, includeJoinUser } = require('../config/joinConfig/index');
+// const { configJoinUser, includeJoinUser } = require('../config/joinConfig/index');
 exports.getUsers = async (req, res, next) => {
     try {
         ProvinceModel.hasMany(Users, { foreignKey: 'province_id' });
@@ -37,7 +37,7 @@ exports.addUser = async (req, res, next) => {
         // });
 
         // const profilePicture = img.join('');
-        let { name, lastname, username, password, gender, phonenumber, emai, province_id  } = new Users(req.body);
+        let { name, lastname, username, password, gender, phonenumber, emai, province_id } = new Users(req.body);
         await Users.create({
             name,
             lastname,
@@ -90,7 +90,7 @@ exports.getUserById = async (req, res, next) => {
             )),
             username: myProfile.username,
             // profilePicture : myProfile.profilePicture,
-        }
+        };
         res.status(200).json(data);
     } catch (error) {
         console.log(error);
@@ -110,8 +110,8 @@ exports.updateUserById = async (req, res, next) => {
 exports.deleteUser = async (req, res, next) => {
     const id = req.params.id;
 
-    const {profilePicture} =  User.findByPk(id)  ;
-    fs.unlink(path.resolve(`./public/profile/./${profilePicture}`), () => console.log('elimiando')); 
+    const { profilePicture } = User.findByPk(id);
+    fs.unlink(path.resolve(`./public/profile/./${profilePicture}`), () => console.log('elimiando'));
     Users.destroy({
         where: {
             id: id
@@ -121,8 +121,6 @@ exports.deleteUser = async (req, res, next) => {
             console.log(e);
             next();
         });
-
-
 };
 exports.authUser = async (req, res, next) => {
     const { emai, password } = req.body;

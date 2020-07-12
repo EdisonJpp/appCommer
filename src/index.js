@@ -3,9 +3,6 @@ const routes = require('./routes');
 const bodyparser = require('body-parser');
 const cors = require('cors');
 const app = express(); 
-const path = require('path');
-
-
 
 app.use(cors());
 app.use(express.json({limit : '50mb'}));

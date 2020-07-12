@@ -30,5 +30,4 @@ module.exports = database.define('users', {
           }
     } 
 });
-//  = users ; 
 

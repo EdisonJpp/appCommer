@@ -1,6 +1,5 @@
 const database = require('../config/DTB');
 const sequelize = require('sequelize');
-// const categorie  = require('./categoriesModel');
 module.exports = database.define('publications', {
     title:{
         type : sequelize.STRING
@@ -32,6 +31,6 @@ module.exports = database.define('publications', {
         references:{
             model: 'categories',
             key: 'id'
-        }
-    }
+        },
+    },
 });

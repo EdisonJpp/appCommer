@@ -6,12 +6,16 @@ const CategorieController = require('../controllers/categorieController');
 // const provinceController = require('../controllers/provinceController');
 // const Join = require('../controllers/join-user-publication');
 const shoppingCartController = require('../controllers/carritoController');
-
-
-
+const seguidorController = require('../controllers/seguidoresController');
 
 
 module.exports = function () {
+
+    //seguidores 
+    router.get('/followers',seguidorController.getSeguidores );
+    router.post('/followers',seguidorController.addSeguidores );
+    router.get('/followers/:userId',seguidorController.getSeguidorByid );
+    router.delete('/followers/:seguidoresId',seguidorController.deleteSeguidor );
 
     // users's routes
     router.get('/users', userControllers.getUsers);
@@ -19,13 +23,13 @@ module.exports = function () {
     router.get('/users/:id', userControllers.getUserById);
     router.put('/users/:id', userControllers.updateUserById);
     // router.put('/users/password/:id', userControllers.updatePasswordById);
-    
+
     router.delete('/users/:id', userControllers.deleteUser);
     router.post('/login', userControllers.authUser);
     // publication's routes
     router.get('/publications', publicationControllers.getPublications);
     router.get('/publications/:id', publicationControllers.findById);
-    router.post('/publications', publicationControllers.AddPublication); 
+    router.post('/publications', publicationControllers.AddPublication);
     router.delete('/publications/:id', publicationControllers.deletePublication);
     //  users's publications 
     router.get('/mypublications/:users_id', publicationControllers.myPublications);
@@ -33,12 +37,12 @@ module.exports = function () {
     // router.get('/provinces',provinceController);
     router.get('/category/:categoryId', publicationControllers.getPostByCategory);
     // categories
-    router.get('/categories', CategorieController.categories);
+    // router.get('/categories', CategorieController.categories);
     router.get('/categories/:id', CategorieController.categorieById);
     // shoppingCar
-    router.get('/shoppingCart', shoppingCartController.getShoppingCart );
+    router.get('/shoppingCart', shoppingCartController.getShoppingCart);
     router.get('/shoppingCart/:userId', shoppingCartController.findCartById);
-    router.post('/shoppingCart' , shoppingCartController.addShoppingCart);
+    router.post('/shoppingCart', shoppingCartController.addShoppingCart);
     router.delete('/shoppingCart/:id', shoppingCartController.deleteShoppingCart);
     // router.pos
 

@@ -95,9 +95,8 @@ exports.findById = async (req, res, next) => {
         res.json(publication);
 
     } catch (error) {
-
         next();
-    }
+    };
 
 };
 exports.deletePublication = async (req, res, next) => {
@@ -124,7 +123,6 @@ exports.deletePublication = async (req, res, next) => {
         unlink(path.resolve(`./public/uploads/./${i}`), () => console.log('elimiando'))
     ));
 };
-// 1590817046661
 exports.AddPublication = async (req, res, next) => {
     try {
         const arrImg = [];
