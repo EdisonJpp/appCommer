@@ -89,7 +89,7 @@ exports.getUserById = async (req, res, next) => {
                 }
             )),
             username: myProfile.username,
-            profilePicture : myProfile.profilePicture,
+            // profilePicture : myProfile.profilePicture,
         }
         res.status(200).json(data);
     } catch (error) {
