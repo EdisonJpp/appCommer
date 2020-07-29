@@ -7,6 +7,7 @@ const CategorieController = require('../controllers/categorieController');
 // const Join = require('../controllers/join-user-publication');
 const shoppingCartController = require('../controllers/carritoController');
 const seguidorController = require('../controllers/seguidoresController');
+const rateUserController = require('../controllers/rateUserController');
 
 
 module.exports = function () {
@@ -23,19 +24,22 @@ module.exports = function () {
     router.get('/users/:id', userControllers.getUserById);
     router.put('/users/:id', userControllers.updateUserById);
     // router.put('/users/password/:id', userControllers.updatePasswordById);
-
     router.delete('/users/:id', userControllers.deleteUser);
     router.post('/login', userControllers.authUser);
+    
     // publication's routes
     router.get('/publications', publicationControllers.getPublications);
     router.get('/publications/:id', publicationControllers.findById);
     router.post('/publications', publicationControllers.AddPublication);
     router.delete('/publications/:id', publicationControllers.deletePublication);
+    
     //  users's publications 
     router.get('/mypublications/:users_id', publicationControllers.myPublications);
+    
     // province 
     // router.get('/provinces',provinceController);
     router.get('/category/:categoryId', publicationControllers.getPostByCategory);
+    
     // categories
     // router.get('/categories', CategorieController.categories);
     router.get('/categories/:id', CategorieController.categorieById);
@@ -44,7 +48,11 @@ module.exports = function () {
     router.get('/shoppingCart/:userId', shoppingCartController.findCartById);
     router.post('/shoppingCart', shoppingCartController.addShoppingCart);
     router.delete('/shoppingCart/:id', shoppingCartController.deleteShoppingCart);
-    // router.pos
+
+    // rate User 
+    router.get('/rate-user' , rateUserController.getRateUser);
+    router.get('/rate-user/:userId' , rateUserController.getByUserId);
+    router.post('/rate-user' , rateUserController.addRateUser);
 
 
 
