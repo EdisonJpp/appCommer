@@ -22,4 +22,7 @@ module.exports =  database.define( 'rateUser',{
     commentary : {
         type : sequelize.TEXT, 
     },
+    dateOfCommentary:{
+        type : sequelize.TEXT,
+    },
 });

@@ -14,8 +14,8 @@ exports.getRateUser = async (req, res, next) => {
 
 exports.getByUserId = async (req, res, next) => {
     try {
-        usersModel.hasMany(rateUserModel, {foreignKey : 'userId'});
-        rateUserModel.belongsTo(usersModel, {foreignKey : 'userId'});
+        // usersModel.hasMany(rateUserModel, {foreignKey : 'userId'});
+        // rateUserModel.belongsTo(usersModel, {foreignKey : 'userId'});
 
         usersModel.hasMany(rateUserModel, {foreignKey : 'qualifierId'});
         rateUserModel.belongsTo(usersModel, {foreignKey : 'qualifierId'});
@@ -46,12 +46,16 @@ exports.getByUserId = async (req, res, next) => {
 };
 
 exports.addRateUser = async (req, res, next) => {
+
+
     try {
+        console.log(req.body.dateOfCommentary);
         await rateUserModel.create({
             userId: req.body.userId,
             qualification: req.body.qualification,
             commentary: req.body.commentary,
             qualifierId : req.body.qualifierId ,
+            dateOfCommentary : req.body.dateOfCommentary,
         });
         res.status(200).json({ message: 'add it correctly' });
     } catch (error) {

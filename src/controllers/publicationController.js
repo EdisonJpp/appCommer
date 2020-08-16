@@ -10,35 +10,26 @@ const { confingJoin, includeJoin } = require('../config/joinConfig');
 
 exports.getPostByCategory = async (req, res, next) => {
     try {
-        Users.hasMany(publicationModel, { foreignKey: 'users_id' });
-        publicationModel.belongsTo(Users, { foreignKey: 'users_id' });
-        categoryModel.hasMany(publicationModel, { foreignKey: 'categoryId' });
-        publicationModel.belongsTo(categoryModel, { foreignKey: 'categoryId' });
-        const rawPublications = await publicationModel.findAll({
-            include: [
-                { model: Users, },
-                { model: categoryModel, }
-            ],
-            where: {
-                categoryId: req.params.categoryId,
-            },
-        });
-        const publicationBycategory = rawPublications.map(p => (
-            {
-                id: p.id,
-                title: p.title,
-                condition: p.condition,
-                price: p.price,
-                description: p.description,
-                image_name: p.image_name,
-                wasPublishedAt: p.wasPublishedAt,
-                users_id: p.users_id,
-                categoryId: p.categoryId,
-                category: p.category,
-                user: p.user,
-                image_name: p.image_name.split(','),
+        categoryModel.hasMany(publicationModel);
+        publicationModel.belongsTo(categoryModel);
+        // categoryModel.hasMany(publicationModel, { foreignKey: 'categoryId' });
+        // publicationModel.belongsTo(categoryModel, { foreignKey: 'categoryId' });
+        const rawPublications = await categoryModel.findByPk(req.params.categoryId
+            , {
+                include:
+                    // { model: Users, },
+                    { model: publicationModel }
+                ,
+                // where: {
+                //     categoryId: req.params.categoryId,
+                // },
             }
-        ));
+        );
+    
+        const publicationBycategory  = rawPublications ; 
+
+           
+
         res.status(200).json(publicationBycategory);
     } catch (error) {
         console.log(error);
